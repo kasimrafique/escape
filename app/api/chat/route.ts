@@ -1,10 +1,15 @@
 "use server";
 
 import { asChatMessages, ModelFusionTextStream } from "@modelfusion/vercel-ai";
-import { Message, OpenAIStream, StreamingTextResponse } from "ai";
+import { Message, StreamingTextResponse } from "ai";
 import { readFile } from "fs/promises";
 import { ollama, streamText } from "modelfusion";
-import OpenAI from "openai";
+
+const api = ollama.Api({
+  baseUrl: {
+    host: process.env.OLLAMA_API_HOST || "127.0.0.1",
+  },
+});
 
 export async function POST(req: Request) {
   const { messages }: { messages: Message[] } = await req.json();
@@ -17,7 +22,12 @@ export async function POST(req: Request) {
   console.log(systemPrompt);
 
   const textStream = await streamText({
-    model: ollama.ChatTextGenerator({ model: "mistral" }).withChatPrompt(),
+    model: ollama
+      .ChatTextGenerator({
+        api: api,
+        model: "mistral",
+      })
+      .withChatPrompt(),
     prompt: {
       system: systemPrompt,
       messages: asChatMessages(messages),
