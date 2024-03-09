@@ -29,6 +29,13 @@ services:
     restart: always
     networks:
       - escape_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 
 # Define a network, which allows containers to communicate
