@@ -32,11 +32,13 @@ docker compose -f docker-compose.yml up -d
 
 #### Add to nginx proxy manager
 Add a new proxy host 
- <img src="npm-proxy-host.png" height="150">
-
+<div>
+ <img src="npm-proxy-host.png" height="400">
+</div>
 request an SSL
- <img src="SSL.png" width="100" height="150">
-
+<div>
+ <img src="SSL.png" height="400">
+</div>
 ## Running locally
 assumes ollama is installed and running in a separate terminal
 
