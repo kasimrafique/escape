@@ -18,7 +18,8 @@ docker build -t nextjs-escapev1 https://github.com/Doozy134/escape.git
 echo "OLLAMA_API_HOST=ollama" >> .env
 ```
 
-### Nvidia GPU - runs better
+### Nvidia GPU 
+#####  runs better
 
 ```bash
 docker compose -f docker-compose-gpu.yml up -d
@@ -39,8 +40,10 @@ request an SSL
 <div>
  <img src="SSL.png" height="400">
 </div>
+
+
 ## Running locally
-assumes ollama is installed and running in a separate terminal
+- assumes ollama is installed and running in a separate terminal
 
 ```bash 
 ollama run mistral
