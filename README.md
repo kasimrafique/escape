@@ -31,7 +31,17 @@ docker compose -f docker-compose-gpu.yml up -d
 docker compose -f docker-compose.yml up -d
 ```
 
-#### Add to nginx proxy manager
+### Install Mistral
+
+You need to now install Mistral within the Ollama Container
+
+```bash
+docker exec -it ollama sh
+# once inside the container pull the manifest
+ollama pull mistral 
+```
+
+### Add to Nginx Proxy Manager
 Add a new proxy host 
 <div>
  <img src="npm-proxy-host.png" height="400">
@@ -46,7 +56,7 @@ request an SSL
 - assumes ollama is installed and running in a separate terminal
 
 ```bash 
-ollama run mistral
+ollama pull mistral
 ```
 
 Then can run nextjs using:
