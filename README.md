@@ -1,39 +1,53 @@
-- requires docker, docker compose
-- assumes want to deploy on nginx proxy manager on *nginx_default* network
+# Escape
 
-Create a separate directory
+
+#### Create a separate directory
 
 ```bash
 mkdir escape-game
 ```
 
+There are 2 different ways to deploy:
+
+1. [Docker](#deploying-on-docker)
+2. [Local](#running-locally)
+
 ## Deploying on Docker
 
-First we need to build docker image
+> **Prerequisites:**
+> docker, docker compose
+
+> **NOTE**
+> Assumes deploying with ['nginx proxy manager'](https://nginxproxymanager.com/), on the `nginx-default` network
+
+First, we need to build the docker image
 
 ```bash
-docker build -t nextjs-escapev1 https://github.com/Doozy134/escape.git
+docker build -t escape:0.1 https://github.com/Doozy134/escape.git
 ```
 ```bash
 echo "OLLAMA_API_HOST=ollama" >> .env
 ```
 
 ### Nvidia GPU 
-#####  runs better
+
+##### *Improves the performance of ollama*
 
 ```bash
-docker compose -f docker-compose-gpu.yml up -d
+curl https://raw.githubusercontent.com/Doozy134/escape/main/docker-compose-gpu.yml > docker-compose.yml
+docker compose up -d
 ```
 
 ### Without GPU
 
 ```bash
-docker compose -f docker-compose.yml up -d
+curl https://raw.githubusercontent.com/Doozy134/escape/main/docker-compose.yml > docker-compose.yml
+docker compose up -d
 ```
 
 ### Install Mistral
 
-You need to now install Mistral within the Ollama Container
+You need to now install Mistral within the Ollama Container.
 
 ```bash
 docker exec -it ollama sh
@@ -42,24 +56,36 @@ ollama pull mistral
 ```
 
 ### Add to Nginx Proxy Manager
-Add a new proxy host 
+- Add a new proxy host 
 <div>
- <img src="npm-proxy-host.png" height="400">
+ <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 60%;" hspace="20" vspace="40" src="resources/npm-proxy-host.png">
 </div>
-request an SSL
+
+- Request an SSL
 <div>
- <img src="SSL.png" height="400">
+ <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 60%;" hspace="20" vspace="40" src="resources/SSL.png">
 </div>
 
 
-## Running locally
-- assumes ollama is installed and running in a separate terminal
+## Running Locally
 
+You need to [install](https://ollama.com/download) ollama, for example on linux:
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+Now we need to download the correct model
 ```bash 
 ollama pull mistral
 ```
+In a separate terminal, run `ollama run mistral`
 
-Then can run nextjs using:
+Then in a different terminal we can use node to run the frontend:
 
 ```bash
 npm run dev
