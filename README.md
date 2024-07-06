@@ -20,11 +20,8 @@ There are 2 different ways to deploy:
 > **NOTE**
 > Assumes deploying with ['nginx proxy manager'](https://nginxproxymanager.com/), on the `nginx-default` network
 
-First, we need to build the docker image
+First we need to create an environment file with the default api hostname
 
-```bash
-docker build -t escape:0.1 https://github.com/Doozy134/escape.git
-```
 ```bash
 echo "OLLAMA_API_HOST=ollama" >> .env
 ```

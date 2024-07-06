@@ -2,7 +2,7 @@
 services:
   escape:
     container_name: next-app-escape
-    image: escape:0.1
+    image: ghcr.io/doozy134/escape:main
     # Set environment variables based on the .env file
     env_file:
       - .env
