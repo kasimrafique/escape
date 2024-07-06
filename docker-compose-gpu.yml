@@ -1,18 +1,15 @@
-version: "3"
-
+---
 services:
   escape:
     container_name: next-app-escape
-    image: nextjs-escapev1
+    image: escape:0.1
     # Set environment variables based on the .env file
     env_file:
       - .env
-
     restart: always
     ports:
-      #map any available port on LHS
+    # Map any available port on LHS
       - 3000:3000
-
     networks:
       - escape_network
       - nginx_default
@@ -24,7 +21,6 @@ services:
       - 11434:11434
     volumes:
       - ./ollama/ollama:/root/.ollama
-        #      - ./ollama/.:/code
     pull_policy: always
     restart: always
     networks:
@@ -37,12 +33,9 @@ services:
               count: 1
               capabilities: [gpu]
 
-
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
 networks:
   nginx_default:
-    name: nginx_default
     external: true
   escape_network:
-
